@@ -70,7 +70,7 @@ class Carousel extends React.Component {
                 return(
                   <div className="slide" style={{transform: `translateX(${this.state.x}%)`}}>
                     <div className="information">
-                      <img src={info.imageUrl} clasName= "image"></img>
+                      <img src={info.imageUrl} className= "image"></img>
                       <div className="bottom">
                         <div className="hover">Quickview</div>
                       </div>
@@ -94,8 +94,8 @@ class Carousel extends React.Component {
               )
             })
           }
-        <Button id="left" onClick={this.left}><i class="fas fa-chevron-left fa-2x"></i></Button>
-        <Button id="right" onClick={this.right}><i class="fas fa-chevron-right fa-2x"></i></Button>
+        <Button id="left" onClick={this.left}><i className="fas fa-chevron-left fa-2x"></i></Button>
+        <Button id="right" onClick={this.right}><i className="fas fa-chevron-right fa-2x"></i></Button>
         </div>
       </div>
     )
