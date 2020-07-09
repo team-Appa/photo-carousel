@@ -138,3 +138,5 @@ const insertSampleData = function() {
 };
 
 insertSampleData();
+
+module.exports.generateData = generateData;

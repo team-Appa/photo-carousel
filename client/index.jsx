@@ -29,6 +29,7 @@ class App extends React.Component {
 
   render() {
     return (
+      console.log(this.state.data),
       <div>
         <div>
           <Carousel data={this.state.data}/>

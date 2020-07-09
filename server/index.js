@@ -2,6 +2,7 @@ const express = require('express');
 
 const View = require('../database/View.js');
 const db = require('../database/index');
+const seed = require('../database/seed.js');
 
 const app = express();
 const PORT = 3003;
@@ -24,6 +25,22 @@ app.get('/api/products', function(req, res) {
     })
 });
 
+app.post('/api/products', function(req, res) {
+  View.create(seed.generateData())
+    .then(result => res.send(result));
+});
+
+app.patch('/api/products', function(req, res) {
+  const id = req.query.id;
+  View.updateOne({id : id}, {__v : 2})
+    .then(result => res.send(result));
+});
+
+app.delete('/api/products', function(req, res) {
+  const id = req.query.id;
+  View.deleteOne({id : id})
+  .then(result => res.send(result));
+})
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
