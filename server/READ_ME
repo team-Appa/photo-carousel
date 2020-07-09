@@ -1,0 +1,22 @@
+CRUD API ROUTES
+- Express 
+
+CREATE (Post)
+Express method - App.post
+endpoint: /api/products
+  should create an entry with the url Id.
+
+RETRIEVE (Get)
+Express method - App.get
+endpoint: api/products
+  should get an entry with the url Id.
+
+UPDATE (Patch)
+Express method - App.patch
+endpoint: api/products
+  should update the entry with the url Id
+
+DELETE (Delete)
+Express Method - App.delete
+endpoint: api/products
+  should delete the entry with the url Id
