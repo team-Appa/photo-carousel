@@ -1,6 +1,5 @@
-const db  = require('./index.js');
-const View = require('./View.js');
 const faker = require('faker');
+const fs = require('fs');
 
 var imagesArray = [
   'https://shrayafec.s3-us-west-1.amazonaws.com/S3/118-160x160.jpg',
@@ -92,100 +91,100 @@ var imagesArray = [
   'https://shrayafec.s3-us-west-1.amazonaws.com/S3/210-160x160.jpg',
 ]
 
-var makeid = 1;
-
-const generateData = function() {
-  var data = [];
-
-  var createImage = function() {
-    var randomized = Math.floor(Math.random() * imagesArray.length)
-    return imagesArray[randomized];
-  }
-
-  var products = [];
-
-  for (var j = 0; j < 8; j++) {
-    var randomName = faker.commerce.productName();
-    var randomUrl = createImage();
-    var randomCost = faker.commerce.price();
-    var randomRatings = Math.floor(Math.random() * 6);
-    var randomReviewsCount = Math.floor(Math.random() * 100)
-
-    var productEntry = {
-      name: randomName,
-      imageUrl: randomUrl,
-      cost: randomCost,
-      ratings: randomRatings,
-      reviewsCount: randomReviewsCount
-    };
-    products.push(productEntry);
-  }
-  var entry = {
-    id: makeid,
-    product: products,
-  }
-  data.push(entry);
-  return data;
+var createImage = function() {
+  var randomized = Math.floor(Math.random() * imagesArray.length)
+  return imagesArray[randomized];
 };
 
-const insertSampleData = function() {
-  var count = 0;
-  while(count < 10000) {
-    View.create(generateData())
-    count++
-    makeid++
+var carouselEntry = () => ({
+  name : faker.commerce.productName(),
+  imgurl : createImage(),
+  cost : faker.commerce.price(),
+  ratings : Math.floor(Math.random() * 6),
+  reviewCount : Math.floor(Math.random() * 100)
+});
+
+
+
+const carousel = fs.createWriteStream('carousel.csv');
+
+var numofData = 10000;
+var carouselArr = [];
+var carouselJSON = () => {
+  for (var i = 0; i < numofData; i ++) {
+    carouselArr.push(carouselEntry());
   }
+  return JSON.stringify(carouselArr);
 };
+carouselJSON();
 
-insertSampleData();
+carousel.write((carouselJSON()))
 
-module.exports.generateData = generateData;
+carousel.on('finish', () => {
+  console.log('Carousel write is complete.')
+});
 
-// var makeid = 1;
+carousel.end();
 
-// const generateData = function() {
+// const generate = function() {
 //   var data = [];
 
 //   var createImage = function() {
 //     var randomized = Math.floor(Math.random() * imagesArray.length)
 //     return imagesArray[randomized];
-//   }
+//   };
 
-//   var products = [];
+//   const carouselEntry = () => ({
+//     name : faker.commerce.productName(),
+//     imgurl : createImage(),
+//     cost : faker.commerce.price(),
+//     ratings : Math.floor(Math.random() * 6),
+//     reviewCount : Math.floor(Math.random() * 100)
+//   });
 
-//   for (var j = 0; j < 8; j++) {
-//     var randomName = faker.commerce.productName();
-//     var randomUrl = createImage();
-//     var randomCost = faker.commerce.price();
-//     var randomRatings = Math.floor(Math.random() * 6);
-//     var randomReviewsCount = Math.floor(Math.random() * 100)
-
-//     var productEntry = {
-//       name: randomName,
-//       imageUrl: randomUrl,
-//       cost: randomCost,
-//       ratings: randomRatings,
-//       reviewsCount: randomReviewsCount
-//     };
-//     products.push(productEntry);
-//   }
-//   var entry = {
-//     id: makeid,
-//     product: products,
-//   }
-//   data.push(entry);
-//   return data;
+//   const stream = fs.createWriteStream('carousel.csv');
+//   // createWriteStream used to write data on to a file
+//   stream.write(carouselEntry());
 // };
 
-// const insertSampleData = function() {
-//   var count = 0;
-//   while(count < 10000) {
-//     View.create(generateData())
-//     count++
-//     makeid++
+// const altGen = function(writer, encoding, callback) {
+//   writer.write('name,cost,ratings,reviewCount\n', 'utf8');
+
+//   let i = 100;
+//   let data = '';
+//   let name = '';
+//   let cost = 0;
+//   let ratings = 0;
+//   let reviewCount = 0;
+
+//   function write() {
+//     let ok = true;
+//     do {
+//       i --;
+//       name = faker.commerce.productName();
+//       cost = faker.commerce.price();
+//       ratings = Math.floor(Math.random() * 6);
+//       reviewCount = Math.floor(Math.random() * 100);
+//       data = name + "," + cost + "," + ratings + "," + reviewCount + "\n"
+
+//       if (i === 0) {
+//         writer.write(data, encoding, callback);
+//       } else {
+//         ok = writer.write(data, encoding);
+//       }
+//     } while (i > 0 && ok);
+//     if (i > 0) {
+//       writer.once('drain', write);
+//     }
 //   }
-// };
+// }
 
-// insertSampleData();
+// var buf = Buffer.alloc(5);
+// console.log(buf);
 
-// module.exports.generateData = generateData;
+// let writer = fs.createWriteStream('helloworld.txt');
+// writer.write('hello world');
+// generate();
+
+
+// module.exports = altGen;
