@@ -96,95 +96,42 @@ var createImage = function() {
   return imagesArray[randomized];
 };
 
-var carouselEntry = () => ({
-  name : faker.commerce.productName(),
-  imgurl : createImage(),
-  cost : faker.commerce.price(),
-  ratings : Math.floor(Math.random() * 6),
-  reviewCount : Math.floor(Math.random() * 100)
-});
-
-
-
-const carousel = fs.createWriteStream('carousel.csv');
-
-var numofData = 10000;
-var carouselArr = [];
-var carouselJSON = () => {
-  for (var i = 0; i < numofData; i ++) {
-    carouselArr.push(carouselEntry());
+function generateCarouselData(writer, encoding, callback) {
+  writer.write('name,imgurl,cost,ratings,reviewCount\n', 'utf8');
+  let i = 100000;
+  let data = '';
+  let name = '';
+  let imgurl = '';
+  let cost = 0;
+  let ratings = 0;
+  let reviewCount = 0;
+  write();
+  function write() {
+    let ok = true;
+    do {
+      i --;
+      name = faker.commerce.productName();
+      imgurl = createImage();
+      cost = faker.commerce.price();
+      ratings = Math.floor(Math.random() * 6);
+      reviewCount = Math.floor(Math.random() * 100);
+      data = name + ", " + imgurl + ", " + cost + ", " + ratings + ", " + reviewCount + "\n";
+      if (i === 0) {
+        writer.write(data, encoding, callback);
+      } else {
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
+    }
   }
-  return JSON.stringify(carouselArr);
-};
-carouselJSON();
+}
 
-carousel.write((carouselJSON()))
+const writeCarousel = fs.createWriteStream('carousels.csv');
 
-carousel.on('finish', () => {
+writeCarousel.on('finish', () => {
   console.log('Carousel write is complete.')
 });
 
-carousel.end();
-
-// const generate = function() {
-//   var data = [];
-
-//   var createImage = function() {
-//     var randomized = Math.floor(Math.random() * imagesArray.length)
-//     return imagesArray[randomized];
-//   };
-
-//   const carouselEntry = () => ({
-//     name : faker.commerce.productName(),
-//     imgurl : createImage(),
-//     cost : faker.commerce.price(),
-//     ratings : Math.floor(Math.random() * 6),
-//     reviewCount : Math.floor(Math.random() * 100)
-//   });
-
-//   const stream = fs.createWriteStream('carousel.csv');
-//   // createWriteStream used to write data on to a file
-//   stream.write(carouselEntry());
-// };
-
-// const altGen = function(writer, encoding, callback) {
-//   writer.write('name,cost,ratings,reviewCount\n', 'utf8');
-
-//   let i = 100;
-//   let data = '';
-//   let name = '';
-//   let cost = 0;
-//   let ratings = 0;
-//   let reviewCount = 0;
-
-//   function write() {
-//     let ok = true;
-//     do {
-//       i --;
-//       name = faker.commerce.productName();
-//       cost = faker.commerce.price();
-//       ratings = Math.floor(Math.random() * 6);
-//       reviewCount = Math.floor(Math.random() * 100);
-//       data = name + "," + cost + "," + ratings + "," + reviewCount + "\n"
-
-//       if (i === 0) {
-//         writer.write(data, encoding, callback);
-//       } else {
-//         ok = writer.write(data, encoding);
-//       }
-//     } while (i > 0 && ok);
-//     if (i > 0) {
-//       writer.once('drain', write);
-//     }
-//   }
-// }
-
-// var buf = Buffer.alloc(5);
-// console.log(buf);
-
-// let writer = fs.createWriteStream('helloworld.txt');
-// writer.write('hello world');
-// generate();
-
-
-// module.exports = altGen;
+(async () => {await generateCarouselData(writeCarousel, 'utf8', () => writeCarousel.end())})()
