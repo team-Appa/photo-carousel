@@ -135,3 +135,48 @@ writeCarousel.on('finish', () => {
 });
 
 (async () => {await generateCarouselData(writeCarousel, 'utf8', () => writeCarousel.end())})()
+
+// var createImage = function() {
+//   var randomized = Math.floor(Math.random() * images.length)
+//   return images[randomized];
+// };
+
+// function generateCarouselData(writer, encoding, callback) {
+//   writer.write('name,imgurl,cost,ratings,reviewCount\n', 'utf8');
+//   let i = 10000000;
+//   let data = '';
+//   let name = '';
+//   let imgurl = '';
+//   let cost = 0;
+//   let ratings = 0;
+//   let reviewCount = 0;
+//   write();
+//   function write() {
+//     let ok = true;
+//     do {
+//       i --;
+//       name = faker.commerce.productName();
+//       imgurl = createImage();
+//       cost = faker.commerce.price();
+//       ratings = Math.floor(Math.random() * 6);
+//       reviewCount = Math.floor(Math.random() * 100);
+//       data = name + ", " + imgurl + ", " + cost + ", " + ratings + ", " + reviewCount + "\n";
+//       if (i === 0) {
+//         writer.write(data, encoding, callback);
+//       } else {
+//         ok = writer.write(data, encoding);
+//       }
+//     } while (i > 0 && ok);
+//     if (i > 0) {
+//       writer.once('drain', write);
+//     }
+//   }
+// }
+
+// const writeCarousel = fs.createWriteStream('carousels.csv');
+
+// writeCarousel.on('finish', () => {
+//   console.log('Carousel write is complete.')
+// });
+
+// (async () => {await generateCarouselData(writeCarousel, 'utf8', () => writeCarousel.end())})()
