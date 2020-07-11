@@ -1,7 +1,7 @@
 const faker = require('faker');
 const fs = require('fs');
 
-var imagesArray = [
+var images = [
   'https://shrayafec.s3-us-west-1.amazonaws.com/S3/118-160x160.jpg',
   'https://shrayafec.s3-us-west-1.amazonaws.com/S3/119-160x160.jpg',
   'https://shrayafec.s3-us-west-1.amazonaws.com/S3/12-160x160.jpg',
@@ -92,13 +92,13 @@ var imagesArray = [
 ]
 
 var createImage = function() {
-  var randomized = Math.floor(Math.random() * imagesArray.length)
-  return imagesArray[randomized];
+  var randomized = Math.floor(Math.random() * images.length)
+  return images[randomized];
 };
 
 function generateCarouselData(writer, encoding, callback) {
   writer.write('name,imgurl,cost,ratings,reviewCount\n', 'utf8');
-  let i = 100000;
+  let i = 10000000;
   let data = '';
   let name = '';
   let imgurl = '';
