@@ -24,3 +24,7 @@ coverage
 build/
 
 bundle.js
+
+#Database
+database/postgres/credentials.js
+carousel.csv

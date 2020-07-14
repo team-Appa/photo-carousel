@@ -1,7 +1,7 @@
 const express = require('express');
 
 const View = require('../database/View.js');
-const db = require('../database/index');
+// const Carousel = require('../database/index.js');
 const seed = require('../database/seed.js');
 
 const app = express();

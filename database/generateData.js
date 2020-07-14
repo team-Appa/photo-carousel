@@ -97,14 +97,14 @@ var createImage = function() {
 };
 
 function generateCarouselData(writer, encoding, callback) {
-  writer.write('name,imgurl,cost,ratings,reviewCount\n', 'utf8');
+  writer.write('name,imgurl,cost,ratings,reviewcount\n', 'utf8');
   let i = 10000000;
   let data = '';
   let name = '';
   let imgurl = '';
   let cost = 0;
   let ratings = 0;
-  let reviewCount = 0;
+  let reviewcount = 0;
   write();
   function write() {
     let ok = true;
@@ -114,8 +114,8 @@ function generateCarouselData(writer, encoding, callback) {
       imgurl = createImage();
       cost = faker.commerce.price();
       ratings = Math.floor(Math.random() * 6);
-      reviewCount = Math.floor(Math.random() * 100);
-      data = name + ", " + imgurl + ", " + cost + ", " + ratings + ", " + reviewCount + "\n";
+      reviewcount = Math.floor(Math.random() * 100);
+      data = name + ", " + imgurl + ", " + cost + ", " + ratings + ", " + reviewcount + "\n";
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {

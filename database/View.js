@@ -1,37 +1,18 @@
-// const mongoose = require('mongoose');
-// const db = require('./index.js');
-// mongoose.Promise = global.Promise;
+const mongoose = require('mongoose');
+const db = require('./index.js');
+mongoose.Promise = global.Promise;
 
-// const viewSchema = new mongoose.Schema({
-//   id: Number,
-//   product: [{
-//     name: String,
-//     imageUrl: String,
-//     cost: Number,
-//     ratings: Number,
-//     reviewsCount: Number
-//     }]
-// });
+const viewSchema = new mongoose.Schema({
+  id: Number,
+  product: [{
+    name: String,
+    imageUrl: String,
+    cost: Number,
+    ratings: Number,
+    reviewsCount: Number
+    }]
+});
 
-// const View = mongoose.model('View', viewSchema);
+const View = mongoose.model('View', viewSchema);
 
-// module.exports = View;
-
-// const mongoose = require('mongoose');
-// const db = require('./index.js');
-// mongoose.Promise = global.Promise;
-
-// const viewSchema = new mongoose.Schema({
-//   id: Number,
-//   product: [{
-//     name: String,
-//     imageUrl: String,
-//     cost: Number,
-//     ratings: Number,
-//     reviewsCount: Number
-//     }]
-// });
-
-// const View = mongoose.model('View', viewSchema);
-
-// module.exports = View;
+module.exports = View;
