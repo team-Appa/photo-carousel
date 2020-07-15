@@ -27,4 +27,5 @@ bundle.js
 
 #Database
 database/postgres/credentials.js
-carousel.csv
+carousels.csv
+get-pip.py

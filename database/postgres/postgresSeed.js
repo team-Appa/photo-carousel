@@ -44,4 +44,3 @@ client
     console.log("seeded carousel")
     return client.end()
   })
-
