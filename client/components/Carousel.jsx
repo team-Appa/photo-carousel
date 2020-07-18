@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './styles.scss';
 import styled from 'styled-components';
-import StarRatings from 'react-star-ratings';
+// import StarRatings from 'react-star-ratings';
 
 const Title = styled.h1`
   font-size: 1.5em;
@@ -65,32 +65,21 @@ class Carousel extends React.Component {
           {
             this.props.data.map((item) => {
               return (
-                item.product.map((info) => {
-                console.log('name', info.imageUrl)
-                return(
+                console.log('name', item.imgurl),
                   <div className="slide" style={{transform: `translateX(${this.state.x}%)`}}>
                     <div className="information">
-                      <img src={info.imageUrl} className= "image"></img>
+                      <img src={item.imgurl} className= "image"></img>
                       <div className="bottom">
                         <div className="hover">Quickview</div>
                       </div>
-                      <Name>{info.name}</Name>
-                      <Cost>${info.cost}.99</Cost>
+                      <Name>{item.name}</Name>
+                      <Cost>${item.cost}</Cost>
                       <p>
-                        <StarRatings
-                          rating= {info.ratings}
-                          starRatedColor= 'gold'
-                          numberOfStars={5}
-                          name='rating'
-                          starDimension= "15px"
-                          starSpacing= "2px"
-                          />
-                          <Count>({info.reviewsCount})</Count>
+                          {item.ratings}
+                          <Count>{item.reviewcount}</Count>
                       </p>
                     </div>
                   </div>
-                )
-                })
               )
             })
           }

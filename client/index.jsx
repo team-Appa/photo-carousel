@@ -15,9 +15,11 @@ class App extends React.Component {
   componentDidMount() {
     const url = new URLSearchParams(window.location.search.substring(1));
     const params = url.get('id');
+    console.log(params);
 
-    axios.get('http://localhost:3003/api/products/?id=' + params)
+    axios.get(`http://localhost:3003/api/products/?id=${params}`)
       .then(response => {
+        console.log(response.data);
         this.setState({
           data: response.data
         })
