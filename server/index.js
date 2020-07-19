@@ -1,5 +1,5 @@
+require('newrelic');
 const express = require('express');
-
 const db = require('../database/postgres/postgresSeed.js');
 const app = express();
 const PORT = 3003;

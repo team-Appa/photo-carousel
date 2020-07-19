@@ -29,3 +29,6 @@ bundle.js
 database/postgres/credentials.js
 carousels.csv
 get-pip.py
+
+#New Relic
+newrelic.js
